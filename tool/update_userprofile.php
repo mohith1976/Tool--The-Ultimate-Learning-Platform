@@ -1,0 +1,262 @@
+
+
+   
+   
+  <?php
+
+include 'Db_conection.php';
+session_start();
+$users_id = $_SESSION['users_id'];
+
+if(isset($_POST['update_profile'])){
+
+   $update_username = mysqli_real_escape_string($conn, $_POST['update_username']);
+   
+  
+   mysqli_query($conn, "UPDATE `user` SET username = '$update_username'") or die('query failed');
+
+   $old_password = $_POST['old_password'];
+   $update_password = mysqli_real_escape_string($conn, $_POST['update_password']);
+   $new_password = mysqli_real_escape_string($conn, $_POST['new_password']);
+   $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
+
+   if(!empty($update_password) || !empty($new_password) || !empty($confirm_password)){
+      if($update_password != $old_password){
+         $message[] = 'old password not matched!';
+      }elseif($new_password != $confirm_password){
+         $message[] = 'confirm password not matched!';
+      }else{
+         mysqli_query($conn, "UPDATE `user` SET password = '$confirm_password' WHERE id = '$user_id'") or die('query failed');
+         $message[] = 'password updated successfully!';
+      }
+   }
+
+   
+   
+   }
+
+
+
+?>
+ 
+   
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Tool-The ultimate online learning platform</title>
+  <link rel="icon" type="image/x-icon" href="mutta.ico">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+     .kol{
+	 font-family:Bungee;
+	 color:#421569;
+	 text-align:center
+	 }
+	 .text-responsive{
+	 font-size:calc(200% + 2vw + 2vh);
+	 }
+	 .lab{
+	 text-align:center;
+	 font-family:Quicksand;
+	 
+	 }
+	 .text-responsive1{
+	 font-size:calc(100% + 1vw + 1vh);
+	 }
+	 .hub{
+	 background-color:#8989b9;
+	 color:black;
+	 }
+	  .hub:hover{
+	  background-color:#421569;
+	  color:black;
+	  }
+	  .r{
+	 background-color:#8989b9;
+	 }
+	 .but{
+	 background-color:#421569;
+	 border:none;
+	 transition-duration: 0.4s;
+	 }
+	  .card {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+     .
+    
+     }
+  </style></head>
+<body>
+<nav class="navbar navbar-expand-md r navbar-dark ">
+
+         <a class="navbar-brand" href="#">
+         <img src="tool.png" alt="logo" style="width:90px; height:35px;"><br><img src="po.png" style="width:80px;height:15px;"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+         </button>
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+             <ul class="navbar-nav ml-auto justify-content-between w-75">
+			 <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle " href="#" id="navbardrop" data-toggle="dropdown">
+             Login
+             </a>
+             <div class="dropdown-menu but hub">
+                 <a class="dropdown-item" href="userlogin.php">Student Login</a>
+                 <a class="dropdown-item" href="principallogin.php">Principal Login</a>
+                 <a class="dropdown-item" href="adminlogin.php">Admin Login</a>
+               </div>
+               </li>
+	
+             <li class="nav-item">
+             <a class="nav-link " href="blogs.html">Blogs</a>
+             </li>
+             <li class="nav-item">
+             <a class="nav-link " href="pricings.html">Pricings</a>
+			 </li>
+             <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle " href="#" id="navbardrop" data-toggle="dropdown">
+             Tools
+             </a>
+             <div class="dropdown-menu but hub">
+                 <a class="dropdown-item" href="onlinetest.html">Online Tests</a>
+                 <a class="dropdown-item" href="liveclasses.html">Live Classes</a>
+                 <a class="dropdown-item" href="doubts.html">Doubts</a>
+               </div>
+               </li>
+	
+	         <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle " href="#" id="navbardrop" data-toggle="dropdown">
+             Company
+             </a>
+             <div class="dropdown-menu">
+                 <a class="dropdown-item" href="index.html">About us</a>
+                 <a class="dropdown-item" href="index.html">Video demo</a>
+                 <a class="dropdown-item" href="index.html">Achievemnts</a>
+             </div>
+             </li>
+             </li>    
+             </ul>
+           </div>  
+          </nav><br><br>
+         <div class="container card ">
+         <h1 class="kol text-responsive">Thank you,For registering your college in our Tool.</h1>
+		 <p class="lab text-responsive1 typewrite" data-period="2000" data-type='["Thank you,For updating your details..","Thank you,For choosing Tool.."]'>
+		  <span class="wrap"></span>
+		  </p>
+<div class="container card ">  
+<div class="form-container">
+
+   <?php
+      $select = mysqli_query($conn, "SELECT * FROM `user` WHERE id = '$users_id'") or die('query failed');
+      if(mysqli_num_rows($select) > 0){
+         $fetch = mysqli_fetch_assoc($select);
+      }
+   ?>
+
+   <form action="" method="post" enctype="multipart/form-data">
+      <?php
+         
+         if(isset($message)){
+            foreach($message as $message){
+               echo '<div class="message">'.$message.'</div>';
+            }
+         }
+      ?>
+           <div class="form-group">
+		     <label for="username">User Name:</label>
+			 <input type="text" class="form-control" id="username" value="<?php echo $fetch['username']; ?>" placeholder="PrincipalName" name="update_username" required/>
+			 <div class="invalid-feedback">Please fill out this field.
+			 </div>
+		     </div>
+               
+            
+         <div class="form-group">
+            <input type="hidden" name="old_password" value="<?php echo $fetch['password']; ?>">
+            <span>old password :</span>
+            <input type="password" name="update_password" placeholder="enter previous password" class="form-control">
+            <span>new password :</span>
+            <input type="password" name="new_password" placeholder="enter new password" class="form-control">
+            <span>confirm password :</span>
+            <input type="password" name="confirm_password" placeholder="confirm new password" class="form-control">
+         </div>
+		 
+     </div>
+<div class="container text-center">		  
+	       <input type="submit" name="update_profile" value="update_profile"class="btn hub" />
+		   </div></form>
+      
+      
+      <a href="userdashboard.html">Back</a></p>
+   </form>
+</div>
+<script>
+		var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+	};
+	</script>
+</body>
+</html>
+      
